@@ -50,6 +50,19 @@ func GenerateLabelFile(filename string, detailsMap map[string]string) (string, e
 	return output.String(), nil
 }
 
+func GenerateLabelString(file string, detailsMap map[string]string) (string, error) {
+	var output string
+
+	split := strings.Split(file, "\n")
+
+	for _, line := range split {
+		result := replacePlaceHolders(line, detailsMap)
+		output += result + "\n"
+	}
+
+	return output, nil
+}
+
 func replacePlaceHolders(line string, detailsMap map[string]string) string {
 	placeholderRegex := regexp.MustCompile(`<<[a-zA-Z0-9_]+>>`)
 
