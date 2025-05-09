@@ -26,5 +26,5 @@ jobs:
       - name: Publish Version
         env: 
           GOPROXY: 'proxy.golang.org'
-        run: go list -m ${{steps.version_step.outputs.version_tag}}
+        run: go list -m http://github.com/${{steps.version_step.outputs.version_tag}}
 
