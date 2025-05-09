@@ -11,6 +11,9 @@ import (
 	"unicode"
 )
 
+// GenerateDetailMap takes a struct as input and returns a map
+// where the keys are placeholder strings in the format <<FieldName>>
+// and the values are the corresponding string values from the struct fields.
 func GenerateDetailMap(details interface{}) map[string]string {
 	detailsMap := make(map[string]string)
 	v := reflect.ValueOf(details)
@@ -25,6 +28,7 @@ func GenerateDetailMap(details interface{}) map[string]string {
 	return detailsMap
 }
 
+// GenerateLabelFile reads a ZPL label template file from disk and replaces all placeholder tokens using the provided map.
 func GenerateLabelFile(filename string, detailsMap map[string]string) (string, error) {
 
 	file, err := os.Open(filename)
@@ -50,6 +54,7 @@ func GenerateLabelFile(filename string, detailsMap map[string]string) (string, e
 	return output.String(), nil
 }
 
+// GenerateLabelString processes a raw ZPL label string in memory, replacing placeholder tokens using the provided map.
 func GenerateLabelString(file string, detailsMap map[string]string) (string, error) {
 	var output string
 
@@ -63,6 +68,7 @@ func GenerateLabelString(file string, detailsMap map[string]string) (string, err
 	return output, nil
 }
 
+// This helper function replaces placeholder tokens in a single line using the provided map.
 func replacePlaceHolders(line string, detailsMap map[string]string) string {
 	placeholderRegex := regexp.MustCompile(`<<[a-zA-Z0-9_]+>>`)
 
@@ -76,6 +82,7 @@ func replacePlaceHolders(line string, detailsMap map[string]string) string {
 	return result
 }
 
+// Removes all non-printable Unicode characters from a string.
 func cleanString(text string) string {
 	text = strings.Map(func(r rune) rune {
 		if unicode.IsPrint(r) {
