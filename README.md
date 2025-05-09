@@ -1,4 +1,3 @@
-````markdown
 # ZPL Label Generator
 
 The `zpl-gen` package is a Go utility for generating Zebra Programming Language (ZPL) label files. It enables you to use struct-based data to dynamically fill in placeholder values in ZPL templates. This is especially useful for automating label printing in manufacturing, logistics, or retail environments.
