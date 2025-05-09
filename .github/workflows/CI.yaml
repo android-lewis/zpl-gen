@@ -23,4 +23,12 @@ jobs:
         run: |
           echo ${{steps.version_step.outputs.version_tag}}
           echo ${{steps.version_step.outputs.latest_tag}}
+      - name: Publish Version
+        uses: actions/setup-go@v2
+          with:
+            go-version: ‘1.24.2’
+        env: 
+          GOPROXY: 'proxy.golang.org'
+        run: |
+          go list -m ${{steps.version_step.outputs.version_tag}}
 
